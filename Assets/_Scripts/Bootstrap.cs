@@ -1,4 +1,5 @@
 using GameSystems;
+using Root;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,17 @@ namespace EntryPoint
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField] private EntityFactory entityFactory;
+        [SerializeField] private StateMachine stateMachine;
 
         private void Start()
         {
-            entityFactory.SpawnEntity(Entities.CharacterType.Kobold, 0);
-            entityFactory.SpawnEntity(Entities.CharacterType.Slime, 2);
+            stateMachine.Enter<StartState>();
+            
+            //entityFactory.SpawnEntity(Entities.CharacterType.Slime, 2);
+
+            //targetPointer.DebugSetTarget();
+
+            //turnOrder.CreateNewOrder();
         }
 
     }

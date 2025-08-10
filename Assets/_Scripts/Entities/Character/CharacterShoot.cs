@@ -4,17 +4,26 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class CharacterShoot : MonoBehaviour
+    public class CharacterShoot : MonoBehaviour, ICharacterAction
     {
         [SerializeField] private ProjectileRoot prefab;
         [SerializeField] private Transform spawnPoint;
-        [SerializeField] private CharacterRoot debugTarget;
-
+        
+        private CharacterRoot shootTarget;
         private Queue<ProjectileRoot> projectilePool = new Queue<ProjectileRoot>();
         private List<ProjectileRoot> projectileActive = new List<ProjectileRoot>();
 
+        public void DoAction()
+        {
+            Debug.Log("shoot");
+            if (shootTarget != null)
+            {
+                Shoot();
+            }
+        }
+
         public void SetTarget(CharacterRoot target) =>
-            debugTarget = target;
+            shootTarget = target;
 
         public void Shoot()
         {
@@ -31,8 +40,8 @@ namespace Entities
                 bullet.gameObject.SetActive(true);
             }
             projectileActive.Add(bullet);
-            bullet.ProjectileHit.SetTarget(debugTarget.CharacterHealth);
-            bullet.ProjectileAnimation.Launch(debugTarget.transform);
+            bullet.ProjectileHit.SetTarget(shootTarget.CharacterHealth);
+            bullet.ProjectileAnimation.Launch(shootTarget.transform);
         }
 
         private ProjectileRoot CreateProjectile()
