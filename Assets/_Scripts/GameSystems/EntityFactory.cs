@@ -36,19 +36,17 @@ namespace GameSystems
                 case CharacterType.Slime:
                     if (enemyPool.Count > 0)
                     {
-                        Debug.Log("dequeue");
                         entity = enemyPool.Dequeue();
                         entity.CharacterHealth.Restore();
                     }
                     else
                     {
-                        Debug.Log("create");
                         entity = CreateEntity(enemy);
                         entity.CharacterHealth.Killed += OnEnemyKilled;
+                        entity.CharacterStrike.SetTarget(playerRoot.CharacterHealth);
                     }
 
                     enemyActive.Add(entity);
-                    //set target for enemy
                     break;
             }
             entity.CharacterData.SetPos(spawnPoint);

@@ -21,7 +21,7 @@ namespace Entities
             }
             else
             {
-                //attack
+                root.CharacterStrike.DealDamage();
             }
         }
     }

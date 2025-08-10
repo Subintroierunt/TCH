@@ -15,6 +15,8 @@ namespace Entities
         public bool IsDead =>
             isDead;
 
+        public event Action<float, float> HealthChanged; //damage/curHealth
+
         public event Action<CharacterRoot> Killed;
 
         public void Init(CharacterRoot root)
@@ -37,6 +39,7 @@ namespace Entities
                     curHealth -= damage;
                     //popup
                 }    
+                HealthChanged?.Invoke(damage, curHealth);
             }
         }
     
@@ -44,6 +47,7 @@ namespace Entities
         {
             isDead = false;
             curHealth = root.CharacterData.Health;
+            HealthChanged?.Invoke(0, curHealth);
         }
 
         private void Death()

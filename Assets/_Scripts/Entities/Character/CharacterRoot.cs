@@ -13,6 +13,7 @@ namespace Entities
         [SerializeField] private CharacterMove characterMove;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private CharacterAI characterAI;
+        [SerializeField] private CharacterStrike characterStrike;
 
         private ICharacterAction characterAction;
 
@@ -28,6 +29,8 @@ namespace Entities
             characterData;
         public CharacterAI CharacterAI =>
             characterAI;
+        public CharacterStrike CharacterStrike =>
+            characterStrike;
 
 
         private void Awake()
@@ -36,6 +39,7 @@ namespace Entities
             characterMove?.Init(this);
             characterHealth?.Init(this);
             characterAI?.Init(this);
+            characterStrike?.Init(this);
             TryGetComponent<ICharacterAction>(out characterAction);
         }
 
