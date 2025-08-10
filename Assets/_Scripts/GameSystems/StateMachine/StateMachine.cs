@@ -1,4 +1,5 @@
 using Environment;
+using GameUI;
 using Root;
 using System;
 using System.Collections;
@@ -12,6 +13,7 @@ namespace GameSystems
         [SerializeField] private EntityFactory entityFactory;
         [SerializeField] private TargetPointer targetPointer;
         [SerializeField] private TurnOrder turnOrder;
+        [SerializeField] private UIRoot uIRoot;
 
         [SerializeField] private MapNodes mapNodes;
         [SerializeField] private MotionEffect backgroundScroll;
@@ -22,9 +24,10 @@ namespace GameSystems
         private void Awake()
         {
             states = new Dictionary<Type, IState>();
-            Add(new StartState(this, entityFactory, mapNodes));
+            Add(new StartState(this, entityFactory, mapNodes, uIRoot));
             Add(new WalkState(this, entityFactory, backgroundScroll, mapNodes));
-            Add(new BattleState(this, turnOrder, entityFactory, targetPointer));
+            Add(new BattleState(this, turnOrder, entityFactory, targetPointer, uIRoot));
+            Add(new DefeatState(this, uIRoot));
         }
 
         public void Enter<TState>() where TState : class, IState

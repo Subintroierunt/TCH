@@ -1,5 +1,6 @@
 using Entities;
 using Environment;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,14 @@ namespace GameSystems
         [SerializeField] private CharacterRoot player;
         [SerializeField] private CharacterRoot enemy;
         [SerializeField] private MapNodes mapNodes;
+        [SerializeField] private KillCounter killCounter;
 
         private Queue<CharacterRoot> enemyPool = new Queue<CharacterRoot>();
         private List<CharacterRoot> enemyActive = new List<CharacterRoot>();
 
         private CharacterRoot playerRoot;
+
+        public event Action EnemyKilled;
 
         public CharacterRoot Player => playerRoot;
 
@@ -65,9 +69,10 @@ namespace GameSystems
 
         private void OnEnemyKilled(CharacterRoot entity)
         {
-            Debug.Log("enqueue");
+            killCounter.AddKill();
             enemyActive.Remove(entity);
             enemyPool.Enqueue(entity);
+            EnemyKilled?.Invoke();
         }
     }
 }

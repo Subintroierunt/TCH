@@ -37,7 +37,6 @@ namespace Entities
                 else
                 {
                     curHealth -= damage;
-                    //popup
                 }    
                 HealthChanged?.Invoke(damage, curHealth);
             }

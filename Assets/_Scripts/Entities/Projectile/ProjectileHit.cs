@@ -8,12 +8,13 @@ namespace Entities
     public class ProjectileHit : MonoBehaviour
     {
         private CharacterHealth targetHealth;
-        private ProjectileRoot root;
+
+        private float damage = 1;
 
         public event Action Hitted;
 
-        public void Init(ProjectileRoot root) =>
-            this.root = root;
+        public void SetDamage(float value) =>
+            damage = value;
 
         public void SetTarget(CharacterHealth targetHealth)
         {
@@ -23,7 +24,7 @@ namespace Entities
         public void DealDamage()
         {
             Hitted?.Invoke();
-            targetHealth.TakeDamege(root.ProjectileData.Damage); //+ level mod
+            targetHealth.TakeDamege(damage); //+ level mod
         }
     }
 }

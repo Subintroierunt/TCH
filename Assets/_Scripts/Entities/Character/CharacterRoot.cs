@@ -40,6 +40,7 @@ namespace Entities
             characterHealth?.Init(this);
             characterAI?.Init(this);
             characterStrike?.Init(this);
+            characterShoot?.Init(this);
             TryGetComponent<ICharacterAction>(out characterAction);
         }
 

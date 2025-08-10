@@ -21,7 +21,6 @@ namespace Entities
         private void Awake()
         {
             projectileAnimation.Init(this);
-            projectileHit.Init(this);
         }
 
     }

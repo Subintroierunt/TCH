@@ -16,11 +16,11 @@ namespace Entities
 
         private void Start()
         {
-            click.Enable();
-            click.performed += _ =>
-            {
-                root.CharacterShoot.Shoot();
-            };
+            //click.Enable();
+            //click.performed += _ =>
+            //{
+            //    root.CharacterShoot.Shoot();
+            //};
         }
     }
 }

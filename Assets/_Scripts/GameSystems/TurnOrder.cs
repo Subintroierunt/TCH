@@ -52,7 +52,7 @@ namespace Root
                 }
             }
             Debug.Log("Order end");
-            OrderEnd?.Invoke(entityList.ContainsKey(0));
+            OrderEnd?.Invoke(!entityList[0].CharacterHealth.IsDead);
         }
 
         private bool IsBattleEnd()

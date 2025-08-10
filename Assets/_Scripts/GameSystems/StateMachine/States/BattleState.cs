@@ -1,3 +1,4 @@
+using GameUI;
 using Root;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,13 +12,15 @@ namespace GameSystems
         private TurnOrder turnOrder;
         private EntityFactory entityFactory;
         private TargetPointer targetPointer;
+        private UIRoot uIroot;
 
-        public BattleState(StateMachine stateMachine, TurnOrder turnOrder, EntityFactory entityFactory, TargetPointer targetPointer)
+        public BattleState(StateMachine stateMachine, TurnOrder turnOrder, EntityFactory entityFactory, TargetPointer targetPointer, UIRoot uIRoot)
         {
             this.stateMachine = stateMachine;
             this.turnOrder = turnOrder;
             this.entityFactory = entityFactory;
             this.targetPointer = targetPointer;
+            this.uIroot = uIRoot;
         }
 
         public void Enter()
@@ -38,12 +41,13 @@ namespace GameSystems
             turnOrder.OrderEnd -= BattleEnd;
             if (isPlayerWin)
             {
+                uIroot.UICardShop.ShowCards();
                 stateMachine.Enter<WalkState>();
             }
             else
             {
                 Debug.Log("Defeat");
-                //restart state 
+                stateMachine.Enter<DefeatState>();
             }    
         }
     }

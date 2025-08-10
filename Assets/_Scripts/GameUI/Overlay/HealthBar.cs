@@ -9,23 +9,25 @@ namespace GameUI
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private CharacterRoot characterRoot;
-        [SerializeField] private Transform healthBar;
-
-        private float maxHealth;
+        [SerializeField] private Slider healthBar;
 
         private void Start()
         {
-            maxHealth = characterRoot.CharacterData.Health;
+            UpdateMaxHealth();
+            healthBar.value = characterRoot.CharacterData.Health;
 
             characterRoot.CharacterHealth.HealthChanged += UpdateBar;
         }
 
+        public void UpdateMaxHealth()
+        {
+            healthBar.maxValue = characterRoot.CharacterData.Health;
+        }
+
         private void UpdateBar(float damage, float curHealth)
         {
-            Vector3 newScale = Vector3.one;
-            newScale.x = curHealth / maxHealth;
-
-            healthBar.transform.localScale =  newScale;
+            UpdateMaxHealth();
+            healthBar.value = curHealth;
         }
 
         private void OnDestroy()
